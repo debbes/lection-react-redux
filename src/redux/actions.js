@@ -31,37 +31,37 @@ export const requestDogErrorAC = () => {
 // };
 
 // Шаг 3
-// export const fetchDogAC = () => {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(requestDogAC());
-//       const resp = await fetch('https://dog.ceo/api/breeds/image/random');
-//       const data = await resp.json();
-//       dispatch(requestDogSuccessAC(data));
-//     } catch (err) {
-//       dispatch(requestDogErrorAC());
-//     }
-//   }
-// };
-
-// Шаг 4
 export const fetchDogAC = () => {
-  return { type: FETCHED_DOG }
+  return async (dispatch) => {
+    try {
+      dispatch(requestDogAC());
+      const resp = await fetch('https://dog.ceo/api/breeds/image/random');
+      const data = await resp.json();
+      dispatch(requestDogSuccessAC(data));
+    } catch (err) {
+      dispatch(requestDogErrorAC());
+    }
+  }
 };
 
-export function* watchFetchDog() {
-  yield takeEvery(FETCHED_DOG, fetchDogAsyncAC);
-}
+// Шаг 4
+// export const fetchDogAC = () => {
+//   return { type: FETCHED_DOG }
+// };
 
-export function *fetchDogAsyncAC () {
-  try {
-    yield put(requestDogAC());
-    const data = yield call( () =>
-      fetch('https://dog.ceo/api/breeds/image/random')
-    );
-    const json = yield call(() => data.json())
-    yield put(requestDogSuccessAC(json))
-  } catch (error) {
-    yield put(requestDogErrorAC())
-  }
-}
+// export function* watchFetchDog() {
+//   yield takeEvery(FETCHED_DOG, fetchDogAsyncAC);
+// }
+
+// export function *fetchDogAsyncAC () {
+//   try {
+//     yield put(requestDogAC());
+//     const data = yield call( () =>
+//       fetch('https://dog.ceo/api/breeds/image/random')
+//     );
+//     const json = yield call(() => data.json())
+//     yield put(requestDogSuccessAC(json))
+//   } catch (error) {
+//     yield put(requestDogErrorAC())
+//   }
+// }

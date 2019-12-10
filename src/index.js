@@ -9,7 +9,7 @@ import {createStore} from 'redux'
 import reducer from './redux/reducer'
 
 // Шаг 4
-import { watchFetchDog } from './redux/actions'
+// import { watchFetchDog } from './redux/actions'
 
 
 // До шага 3
@@ -18,24 +18,24 @@ import { watchFetchDog } from './redux/actions'
 
 // Шаг 3
 
-// import { applyMiddleware, compose } from 'redux'
-// import thunk from 'redux-thunk'
-
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-// const store = createStore(reducer,
-//   composeEnhancers(applyMiddleware(thunk))
-// );
-
-// Шаг 4
 import { applyMiddleware, compose } from 'redux'
-import createSagaMiddleware from 'redux-saga'
+import thunk from 'redux-thunk'
 
-const sagaMiddleware = createSagaMiddleware()
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+  composeEnhancers(applyMiddleware(thunk))
 );
-sagaMiddleware.run(watchFetchDog);
+
+// Шаг 4
+// import { applyMiddleware, compose } from 'redux'
+// import createSagaMiddleware from 'redux-saga'
+
+// const sagaMiddleware = createSagaMiddleware()
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const store = createStore(reducer,
+//   composeEnhancers(applyMiddleware(sagaMiddleware))
+// );
+// sagaMiddleware.run(watchFetchDog);
 
 
 ReactDOM.render(<div>
